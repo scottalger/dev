@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"  standalone="yes"?>
+
+<!-- ns2:behavior  
+xmlns:ns2="http://services.lotame.com/cc/behaviorservice"  
+xmlns:ns3="http://services.lotame.com/cc/behaviorstats"  
+xmlns:ns4="http://services.lotame.com/cc/clientservice"  
+xmlns:ns5="http://services.lotame.com/cc/common" name="male"  id="5990">
+
+<behaviorTypeId>6</behaviorTypeId><created>1185313503000</created></ns2:behavior -->
+
+<!--
+
+NEED A TOKEN TO DISPLAY DATA
+
+TBD: The Code to use is PHP or .NET 
+Authentication: 
+Content-Type: application/xml
+Accept: application/xml;application/json 
+--->
+
+
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Top 20 Audiences</title>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+  	var thisTable = $("#artifacts").dataTable(
+    {
+        "sPaginationType": "full_numbers",
+        "bJQueryUI": true
+    }
+);
+		
+	    });
+		
+		
+		
+		//Simulated data response, since I can't get your source
+var data = {
+    json: JSON.stringify({
+        "artifact": [
+            {
+                "artifactId": "I8cc4a96ef69a11e08b448cf533780ea2",
+                "batchId": "15581",
+                "processId": "115458787"
+            },
+            {
+                "artifactId": "e08b448cf533780ea2I8cc4a96ef69a11",
+                "batchId": "14962",
+                "processId": "787974254"
+            }
+        ]
+    }),
+    delay: 1
+}
+		
+		
+		// refresh data when submit button is pressed.
+		
+        function submitForm()
+        {
+        $.getJSON('https://api.lotame.com/audstats/reports/topAudiencesWithInterests', function(data) {	
+		$.each(data.artifact, function(i,artifact){
+                        
+		thisTable.fnAddData(
+        [
+            artifact.artifactId,
+            artifact.batchId,
+            artifact.processId 
+        ]
+    );
+	
+                });
+             });
+        }
+		
+		
+
+
+		
+		
+</script>
+
+
+	
+
+</head>
+
+<body>
+
+<form id="searchform">
+    <input class="searchbutton" type="submit" value="Fetch data" id="go" /> 
+</form>
+
+<div id="container">
+    <div id="demo_jui">
+            <table width="375" class="display" id="artifacts">
+                    <thead>
+                            <tr>
+                                <th width="145">Top 20 Audiences</th>
+                                <th width="122">Audience name</th>
+                                <th width="92">Unique count</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+            </table>
+  </div>
+</div>
+
+
+
+
+
+</body>
+</html>
